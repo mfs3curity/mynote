@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test CORS</title>
+</head>
+<body>
+    <h1>اختبار تسجيل الدخول</h1>
+    <button id="loginButton">تسجيل الدخول</button>
+
+    <script>
+        document.getElementById('loginButton').addEventListener('click', function() {
+            const url = 'http://localhost:1337/api/auth/login';
+            const data = {
+                username: 'admin',
+                password: 'admin'
+            };
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('نجاح:', data);
+            })
+            .catch((error) => {
+                console.error('خطأ:', error);
+            });
+        });
+    </script>
+</body>
+</html>
